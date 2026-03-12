@@ -8,11 +8,8 @@ use Anddye\Settings\Exceptions\MissingSettingException;
 
 class Settings implements SettingsInterface
 {
-    private array $settings;
-
-    public function __construct(array $settings)
+    public function __construct(private array $settings)
     {
-        $this->settings = $settings;
     }
 
     public function all(): array
