@@ -55,6 +55,7 @@ readonly class Settings implements SettingsInterface
     {
         $keys = explode('.', $key);
         $array = $this->settings;
+        $lastIndex = count($keys) - 1;
 
         foreach ($keys as $index => $k) {
             if (!array_key_exists($k, $array)) {
@@ -63,7 +64,7 @@ readonly class Settings implements SettingsInterface
 
             $array = $array[$k];
 
-            if (!is_array($array) && $index < count($keys) - 1) {
+            if (!is_array($array) && $index < $lastIndex) {
                 return false;
             }
         }
