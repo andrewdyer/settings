@@ -46,15 +46,8 @@ $all = $settings->all();
 
 ### Retrieve a value by key
 
+Provide a key to `get()` to retrieve its value. If the key is not found, a `MissingSettingException` is thrown.
+
 ```php
 $timezone = $settings->get('timezone'); // 'UTC'
-```
-
-### Retrieve all settings
-
-Calling `get()` without a key returns the entire settings array.
-
-```php
-$all = $settings->get();
-// ['app_name' => 'My Application', 'timezone' => 'UTC', 'debug' => true]
 ```

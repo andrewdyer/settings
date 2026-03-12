@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Anddye\Settings;
 
+use Anddye\Settings\Exceptions\MissingSettingException;
+
 class Settings implements SettingsInterface
 {
     private array $settings;
@@ -18,8 +20,8 @@ class Settings implements SettingsInterface
         return $this->settings;
     }
 
-    public function get(string $key = '')
+    public function get(string $key)
     {
-        return ($key === '') ? $this->settings : $this->settings[$key];
+        return $this->settings[$key] ?? throw MissingSettingException::forKey($key);
     }
 }
