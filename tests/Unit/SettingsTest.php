@@ -50,7 +50,7 @@ class SettingsTest extends TestCase
     public function testGetThrowsMissingSettingExceptionWhenKeyNotFound(): void
     {
         $settings = new Settings([
-            'timezone' => 'UTC'
+            'timezone' => 'UTC',
         ]);
 
         $this->expectException(MissingSettingException::class);
