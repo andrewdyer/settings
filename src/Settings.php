@@ -23,11 +23,47 @@ readonly class Settings implements SettingsInterface
             throw MissingSettingException::forKey($key);
         }
 
-        return $this->settings[$key];
+        return $this->getNestedValue($key);
     }
 
     public function has(string $key): bool
     {
-        return array_key_exists($key, $this->settings);
+        return $this->checkNestedKey($key);
+    }
+
+    private function getNestedValue(string $key): mixed
+    {
+        $keys = explode('.', $key);
+        $array = $this->settings;
+
+        foreach ($keys as $k) {
+            if (!array_key_exists($k, $array)) {
+                return null;
+            }
+
+            $array = $array[$k];
+        }
+
+        return $array;
+    }
+
+    private function checkNestedKey(string $key): bool
+    {
+        $keys = explode('.', $key);
+        $array = $this->settings;
+
+        foreach ($keys as $k) {
+            if (!array_key_exists($k, $array)) {
+                return false;
+            }
+
+            $array = $array[$k];
+
+            if (!is_array($array) && $k !== end($keys)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
