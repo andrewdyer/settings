@@ -8,5 +8,5 @@ interface SettingsInterface
 {
     public function all(): array;
 
-    public function get(string $key);
+    public function get(string $key): mixed;
 }
