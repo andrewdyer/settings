@@ -29,12 +29,34 @@ use Anddye\Settings\Settings;
 
 $settings = new Settings([
     'app_name' => 'My Application',
-    'timezone' => 'UTC',
-    'debug'    => true,
+    'database' => [
+        'host' => 'localhost',
+        'port' => 5432,
+        'credentials' => [
+            'username' => 'admin',
+            'password' => 'secret',
+        ],
+    ],
 ]);
 ```
 
 ## 📚 Usage
+
+For the following examples, we'll use this settings configuration:
+
+```php
+$settings = new Settings([
+    'app_name' => 'My Application',
+    'database' => [
+        'host' => 'localhost',
+        'port' => 5432,
+        'credentials' => [
+            'username' => 'admin',
+            'password' => 'secret',
+        ],
+    ],
+]);
+```
 
 ### Retrieve all settings
 
@@ -48,16 +70,34 @@ $all = $settings->all();
 
 Provide a key to `get()` to retrieve its value. If the key is not found, a `MissingSettingException` is thrown.
 
+You can access top-level keys directly or use dot notation for nested values.
+
 ```php
-$timezone = $settings->get('timezone'); // 'UTC'
+// Access top-level keys
+$appName = $settings->get('app_name'); // 'My Application'
+
+// Access nested values using dot notation
+$host = $settings->get('database.host');                    // 'localhost'
+$port = $settings->get('database.port');                    // 5432
+$username = $settings->get('database.credentials.username'); // 'admin'
+
+// Retrieve entire nested arrays
+$dbConfig = $settings->get('database'); // Returns the entire database array
 ```
 
 ### Check if a setting exists
 
-Use `has()` to check for the presence of a key without throwing.
+Use `has()` to check for the presence of a key without throwing. Works with both top-level and nested keys.
 
 ```php
-if ($settings->has('timezone')) {
+// Check top-level keys
+if ($settings->has('app_name')) {
     // safe to call get()
 }
+
+// Check nested keys
+if ($settings->has('database.credentials.password')) {
+    $password = $settings->get('database.credentials.password'); // 'secret'
+}
 ```
+
