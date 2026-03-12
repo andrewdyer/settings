@@ -4,12 +4,12 @@
   "type": "library",
   "autoload": {
     "psr-4": {
-      "YourVendor\\YourPackage\\": "src/"
+      "Anddye\\Settings\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "YourVendor\\YourPackage\\Tests\\": "tests/"
+      "Anddye\\Settings\\Tests\\": "tests/"
     }
   },
   "require": {
