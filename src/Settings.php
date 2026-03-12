@@ -6,7 +6,7 @@ namespace Anddye\Settings;
 
 use Anddye\Settings\Exceptions\MissingSettingException;
 
-class Settings implements SettingsInterface
+readonly class Settings implements SettingsInterface
 {
     public function __construct(private array $settings)
     {
