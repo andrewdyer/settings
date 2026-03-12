@@ -6,5 +6,7 @@ namespace Anddye\Settings;
 
 interface SettingsInterface
 {
+    public function all(): array;
+
     public function get(string $key = '');
 }

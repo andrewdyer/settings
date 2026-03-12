@@ -36,6 +36,14 @@ $settings = new Settings([
 
 ## 📚 Usage
 
+### Retrieve all settings
+
+Calling `all()` returns the entire settings array.
+
+```php
+$all = $settings->all();
+```
+
 ### Retrieve a value by key
 
 ```php

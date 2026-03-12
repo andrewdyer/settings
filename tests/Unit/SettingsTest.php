@@ -10,6 +10,18 @@ use PHPUnit\Framework\TestCase;
 
 class SettingsTest extends TestCase
 {
+    public function testAllReturnsAllSettings(): void
+    {
+        $settings = [
+            'timezone' => 'UTC',
+            'locale' => 'en_US',
+        ];
+
+        $instance = new Settings($settings);
+
+        self::assertSame($settings, $instance->all());
+    }
+
     public function testGetReturnsAllSettingsWhenKeyIsEmpty(): void
     {
         $settings = [
