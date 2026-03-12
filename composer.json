@@ -1,15 +1,15 @@
 {
-  "name": "your-vendor/your-package",
-  "description": "",
+  "name": "andrewdyer/php-settings",
+  "description": "A simple, framework-agnostic settings container for PHP applications",
   "type": "library",
   "autoload": {
     "psr-4": {
-      "YourVendor\\YourPackage\\": "src/"
+      "Anddye\\Settings\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "YourVendor\\YourPackage\\Tests\\": "tests/"
+      "Anddye\\Settings\\Tests\\": "tests/"
     }
   },
   "require": {

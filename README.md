@@ -1,8 +1,6 @@
-![PHP Package Template](https://public-assets.andrewdyer.rocks/images/covers/php-package-template.png)
+# ⚙️ Settings
 
-# PHP Package Template
-
-A template for creating PHP 8.3+ packages.
+A simple, framework-agnostic settings container for PHP applications.
 
 ## ⚖️ License
 
@@ -10,28 +8,46 @@ Licensed under the [MIT license](https://opensource.org/licenses/MIT) and is fre
 
 ## ✨ Introduction
 
-This template provides a solid foundation for building modern PHP packages. It’s designed to help you hit the ground running and focus on building your package functionality without worrying about boilerplate setup like autoloading, testing, or Composer configuration.
+This library provides a lightweight wrapper around a plain PHP array, giving you a clean interface for storing and retrieving application configuration values. It offers a straightforward, dependency-free way to manage configuration without coupling your code to a specific framework, making it easy to drop into any project or architecture.
 
-## 📋 Prerequisites
+## 📥 Installation
 
-Before you begin, ensure you have met the following requirements:
+```bash
+composer require andrewdyer/php-settings
+```
 
-- **PHP**: Version 8.3 or higher.
-- **[Composer](https://getcomposer.org)**: A dependency manager for PHP, used to install packages and autoload your code.
-
-## 🛠️ Features
-
-This template includes the following tools and configurations:
-
-- [PSR-4 autoloading](https://www.php-fig.org/psr/psr-4/) via Composer
-- [PHPUnit](https://phpunit.de/) for unit testing to ensure the reliability of your code.
-- [PHP Coding Standards Fixer](https://cs.symfony.com/) for maintaining consistent code style.
-- CI (Continuous Integration) setup with [GitHub Actions](https://github.com/features/actions) for automated testing.
+Requires PHP 8.3 or newer.
 
 ## 🚀 Getting Started
 
-If you like what you've seen so far and think this setup fits your needs, you can quickly get started by clicking the **Use this template** button at the top of the repository on GitHub.
+Create a `Settings` instance by passing in your configuration array.
 
-## 🤝 Contributing
+```php
+declare(strict_types=1);
 
-Found a bug or want to improve this package? Feel free to open a pull request or submit an issue.
+use Anddye\Settings\Settings;
+
+$settings = new Settings([
+    'app_name' => 'My Application',
+    'timezone' => 'UTC',
+    'debug'    => true,
+]);
+```
+
+## 📚 Usage
+
+### Retrieve all settings
+
+Calling `all()` returns the entire settings array.
+
+```php
+$all = $settings->all();
+```
+
+### Retrieve a value by key
+
+Provide a key to `get()` to retrieve its value. If the key is not found, a `MissingSettingException` is thrown.
+
+```php
+$timezone = $settings->get('timezone'); // 'UTC'
+```
