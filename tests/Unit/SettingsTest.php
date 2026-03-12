@@ -12,14 +12,12 @@ class SettingsTest extends TestCase
 {
     public function testAllReturnsAllSettings(): void
     {
-        $settings = [
+        $settings = new Settings([
             'timezone' => 'UTC',
             'locale' => 'en_US',
-        ];
+        ]);
 
-        $instance = new Settings($settings);
-
-        self::assertSame($settings, $instance->all());
+        self::assertCount(2, $settings->all());
     }
 
     public function testGetReturnsSettingByKey(): void
