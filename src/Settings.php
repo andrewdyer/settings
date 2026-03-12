@@ -19,10 +19,6 @@ readonly class Settings implements SettingsInterface
 
     public function get(string $key): mixed
     {
-        if (!$this->has($key)) {
-            throw MissingSettingException::forKey($key);
-        }
-
         if (array_key_exists($key, $this->settings)) {
             return $this->settings[$key];
         }
@@ -46,7 +42,7 @@ readonly class Settings implements SettingsInterface
 
         foreach ($keys as $k) {
             if (!array_key_exists($k, $array)) {
-                return null;
+                throw MissingSettingException::forKey($key);
             }
 
             $array = $array[$k];
