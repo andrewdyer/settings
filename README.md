@@ -42,22 +42,6 @@ $settings = new Settings([
 
 ## 📚 Usage
 
-For the following examples, we'll use this settings configuration:
-
-```php
-$settings = new Settings([
-    'app_name' => 'My Application',
-    'database' => [
-        'host' => 'localhost',
-        'port' => 5432,
-        'credentials' => [
-            'username' => 'admin',
-            'password' => 'secret',
-        ],
-    ],
-]);
-```
-
 ### Retrieve all settings
 
 Calling `all()` returns the entire settings array.
