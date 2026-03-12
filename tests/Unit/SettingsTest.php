@@ -24,41 +24,41 @@ class SettingsTest extends TestCase
 
     public function testGetReturnsSettingByKey(): void
     {
-        $instance = new Settings([
+        $settings = new Settings([
             'timezone' => 'UTC',
         ]);
 
-        self::assertSame('UTC', $instance->get('timezone'));
+        self::assertSame('UTC', $settings->get('timezone'));
     }
 
     public function testGetReturnsNullWhenKeyExistsWithNullValue(): void
     {
-        $instance = new Settings([
+        $settings = new Settings([
             'timezone' => null,
         ]);
 
-        self::assertNull($instance->get('timezone'));
+        self::assertNull($settings->get('timezone'));
     }
 
     public function testGetWithNumericStringKeyReturnsCorrectValue(): void
     {
-        $instance = new Settings([
+        $settings = new Settings([
             '0' => 'zero',
         ]);
 
-        self::assertSame('zero', $instance->get('0'));
+        self::assertSame('zero', $settings->get('0'));
     }
 
     public function testGetThrowsMissingSettingExceptionWhenKeyNotFound(): void
     {
-        $instance = new Settings([
+        $settings = new Settings([
             'timezone' => 'UTC'
         ]);
 
         $this->expectException(MissingSettingException::class);
         $this->expectExceptionMessage('Setting not found for key "unknown".');
 
-        $instance->get('unknown');
+        $settings->get('unknown');
     }
 
     public function testHasReturnsTrueWhenKeyExists(): void
