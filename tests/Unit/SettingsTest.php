@@ -66,4 +66,22 @@ class SettingsTest extends TestCase
 
         $instance->get('unknown');
     }
+
+    public function testHasReturnsTrueWhenKeyExists(): void
+    {
+        $settings = new Settings([
+            'timezone' => 'UTC',
+        ]);
+
+        self::assertTrue($settings->has('timezone'));
+    }
+
+    public function testHasReturnsFalseWhenKeyDoesNotExist(): void
+    {
+        $settings = new Settings([
+            'timezone' => 'UTC',
+        ]);
+
+        self::assertFalse($settings->has('unknown'));
+    }
 }
