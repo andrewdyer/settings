@@ -20,6 +20,95 @@ class SettingsTest extends TestCase
         self::assertCount(2, $settings->all());
     }
 
+    public function testHasReturnsTrueWhenKeyExists(): void
+    {
+        $settings = new Settings([
+            'timezone' => 'UTC',
+        ]);
+
+        self::assertTrue($settings->has('timezone'));
+    }
+
+    public function testHasReturnsFalseWhenKeyDoesNotExist(): void
+    {
+        $settings = new Settings([
+            'timezone' => 'UTC',
+        ]);
+
+        self::assertFalse($settings->has('unknown'));
+    }
+
+    public function testHasReturnsTrueForNestedKey(): void
+    {
+        $settings = new Settings([
+            'database' => [
+                'host' => 'localhost',
+                'port' => 5432,
+            ],
+        ]);
+
+        self::assertTrue($settings->has('database.host'));
+        self::assertTrue($settings->has('database.port'));
+    }
+
+    public function testHasReturnsFalseForMissingNestedKey(): void
+    {
+        $settings = new Settings([
+            'database' => [
+                'host' => 'localhost',
+            ],
+        ]);
+
+        self::assertFalse($settings->has('database.port'));
+    }
+
+    public function testHasReturnsFalseWhenIntermediateKeyDoesNotExist(): void
+    {
+        $settings = new Settings([
+            'database' => [
+                'host' => 'localhost',
+            ],
+        ]);
+
+        self::assertFalse($settings->has('cache.driver'));
+    }
+
+    public function testHasReturnsTrueForDeepNestedKey(): void
+    {
+        $settings = new Settings([
+            'app' => [
+                'services' => [
+                    'cache' => [
+                        'driver' => 'redis',
+                    ],
+                ],
+            ],
+        ]);
+
+        self::assertTrue($settings->has('app.services.cache.driver'));
+    }
+
+    public function testHasReturnsTrueForLiteralKeyContainingDot(): void
+    {
+        $settings = new Settings([
+            'database.host' => 'localhost',
+        ]);
+
+        self::assertTrue($settings->has('database.host'));
+    }
+
+    public function testHasPrefersLiteralDotKeyOverNested(): void
+    {
+        $settings = new Settings([
+            'database.host' => 'literal',
+            'database' => [
+                'host' => 'nested',
+            ],
+        ]);
+
+        self::assertTrue($settings->has('database.host'));
+    }
+
     public function testGetReturnsSettingByKey(): void
     {
         $settings = new Settings([
@@ -59,21 +148,107 @@ class SettingsTest extends TestCase
         $settings->get('unknown');
     }
 
-    public function testHasReturnsTrueWhenKeyExists(): void
+    public function testGetReturnsNestedValueWithDotNotation(): void
     {
         $settings = new Settings([
-            'timezone' => 'UTC',
+            'database' => [
+                'host' => 'localhost',
+                'port' => 5432,
+            ],
         ]);
 
-        self::assertTrue($settings->has('timezone'));
+        self::assertSame('localhost', $settings->get('database.host'));
+        self::assertSame(5432, $settings->get('database.port'));
     }
 
-    public function testHasReturnsFalseWhenKeyDoesNotExist(): void
+    public function testGetReturnsNestedArrayValue(): void
     {
         $settings = new Settings([
-            'timezone' => 'UTC',
+            'database' => [
+                'host' => 'localhost',
+                'port' => 5432,
+            ],
         ]);
 
-        self::assertFalse($settings->has('unknown'));
+        $expected = [
+            'host' => 'localhost',
+            'port' => 5432,
+        ];
+        self::assertSame($expected, $settings->get('database'));
+    }
+
+    public function testGetReturnsDeepNestedValue(): void
+    {
+        $settings = new Settings([
+            'app' => [
+                'services' => [
+                    'cache' => [
+                        'driver' => 'redis',
+                    ],
+                ],
+            ],
+        ]);
+
+        self::assertSame('redis', $settings->get('app.services.cache.driver'));
+    }
+
+    public function testGetThrowsExceptionForMissingNestedKey(): void
+    {
+        $settings = new Settings([
+            'database' => [
+                'host' => 'localhost',
+            ],
+        ]);
+
+        $this->expectException(MissingSettingException::class);
+        $this->expectExceptionMessage('Setting not found for key "database.port".');
+
+        $settings->get('database.port');
+    }
+
+    public function testGetThrowsExceptionWhenIntermediateKeyDoesNotExist(): void
+    {
+        $settings = new Settings([
+            'database' => [
+                'host' => 'localhost',
+            ],
+        ]);
+
+        $this->expectException(MissingSettingException::class);
+        $this->expectExceptionMessage('Setting not found for key "cache.driver".');
+
+        $settings->get('cache.driver');
+    }
+
+    public function testGetReturnsNullForNestedKeyWithNullValue(): void
+    {
+        $settings = new Settings([
+            'database' => [
+                'password' => null,
+            ],
+        ]);
+
+        self::assertNull($settings->get('database.password'));
+    }
+
+    public function testGetReturnsLiteralKeyContainingDot(): void
+    {
+        $settings = new Settings([
+            'database.host' => 'localhost',
+        ]);
+
+        self::assertSame('localhost', $settings->get('database.host'));
+    }
+
+    public function testGetPrefersLiteralDotKeyOverNestedValue(): void
+    {
+        $settings = new Settings([
+            'database.host' => 'literal',
+            'database' => [
+                'host' => 'nested',
+            ],
+        ]);
+
+        self::assertSame('literal', $settings->get('database.host'));
     }
 }

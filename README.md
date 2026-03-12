@@ -29,8 +29,14 @@ use Anddye\Settings\Settings;
 
 $settings = new Settings([
     'app_name' => 'My Application',
-    'timezone' => 'UTC',
-    'debug'    => true,
+    'database' => [
+        'host' => 'localhost',
+        'port' => 5432,
+        'credentials' => [
+            'username' => 'admin',
+            'password' => 'secret',
+        ],
+    ],
 ]);
 ```
 
@@ -38,26 +44,72 @@ $settings = new Settings([
 
 ### Retrieve all settings
 
-Calling `all()` returns the entire settings array.
+Get the entire settings array using the `all()` method.
 
 ```php
 $all = $settings->all();
 ```
 
-### Retrieve a value by key
+### Retrieve a setting
 
-Provide a key to `get()` to retrieve its value. If the key is not found, a `MissingSettingException` is thrown.
+Access a top-level setting using its key with the `get()` method.
 
 ```php
-$timezone = $settings->get('timezone'); // 'UTC'
+$appName = $settings->get('app_name'); // 'My Application'
+```
+
+The `get()` method can also access nested settings using dot notation.
+
+```php
+$host = $settings->get('database.host'); // 'localhost'
+```
+
+Dot notation can traverse multiple levels of configuration.
+
+```php
+$username = $settings->get('database.credentials.username'); // 'admin'
+```
+
+Requesting a parent key with `get()` returns the entire nested configuration array.
+
+```php
+$database = $settings->get('database');
 ```
 
 ### Check if a setting exists
 
-Use `has()` to check for the presence of a key without throwing.
+Check if a top-level key exists using the `has()` method.
 
 ```php
-if ($settings->has('timezone')) {
-    // safe to call get()
-}
+$settings->has('app_name'); // true
+```
+
+The `has()` method also supports nested keys using dot notation.
+
+```php
+$settings->has('database.credentials.password'); // true
+```
+
+### Literal keys containing dots
+
+If a top-level key contains dots, the exact key takes precedence over nested resolution.
+
+```php
+$settings = new Settings([
+    'database.host' => 'literal',
+]);
+
+$settings->get('database.host'); // 'literal'
+```
+
+If the exact key does not exist, the `get()` method falls back to resolving nested values using dot notation.
+
+```php
+$settings = new Settings([
+    'database' => [
+        'host' => 'nested',
+    ],
+]);
+
+$settings->get('database.host'); // 'nested'
 ```
