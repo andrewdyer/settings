@@ -22,6 +22,10 @@ class Settings implements SettingsInterface
 
     public function get(string $key): mixed
     {
-        return $this->settings[$key] ?? throw MissingSettingException::forKey($key);
+        if (!array_key_exists($key, $this->settings)) {
+            throw MissingSettingException::forKey($key);
+        }
+
+        return $this->settings[$key];
     }
 }
