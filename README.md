@@ -51,3 +51,13 @@ Provide a key to `get()` to retrieve its value. If the key is not found, a `Miss
 ```php
 $timezone = $settings->get('timezone'); // 'UTC'
 ```
+
+### Check if a setting exists
+
+Use `has()` to check for the presence of a key without throwing.
+
+```php
+if ($settings->has('timezone')) {
+    // safe to call get()
+}
+```
