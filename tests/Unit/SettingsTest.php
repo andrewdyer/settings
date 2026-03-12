@@ -209,4 +209,46 @@ class SettingsTest extends TestCase
 
         self::assertNull($settings->get('database.password'));
     }
+
+    public function testGetReturnsLiteralKeyContainingDot(): void
+    {
+        $settings = new Settings([
+            'database.host' => 'localhost',
+        ]);
+
+        self::assertSame('localhost', $settings->get('database.host'));
+    }
+
+    public function testGetPrefersLiteralDotKeyOverNestedValue(): void
+    {
+        $settings = new Settings([
+            'database.host' => 'literal',
+            'database' => [
+                'host' => 'nested',
+            ],
+        ]);
+
+        self::assertSame('literal', $settings->get('database.host'));
+    }
+
+    public function testHasReturnsTrueForLiteralKeyContainingDot(): void
+    {
+        $settings = new Settings([
+            'database.host' => 'localhost',
+        ]);
+
+        self::assertTrue($settings->has('database.host'));
+    }
+
+    public function testHasPrefersLiteralDotKeyOverNested(): void
+    {
+        $settings = new Settings([
+            'database.host' => 'literal',
+            'database' => [
+                'host' => 'nested',
+            ],
+        ]);
+
+        self::assertTrue($settings->has('database.host'));
+    }
 }
