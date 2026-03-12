@@ -35,6 +35,18 @@ class SettingsTest extends TestCase
         self::assertSame('UTC', $instance->get('timezone'));
     }
 
+    public function testGetWithNumericStringKeyReturnsCorrectValue(): void
+    {
+        $settings = [
+            '0' => 'zero',
+            '1' => 'one',
+        ];
+
+        $instance = new Settings($settings);
+
+        self::assertSame('zero', $instance->get('0'));
+    }
+
     public function testGetWithMissingKeyThrowsErrorExceptionWhenWarningsAreConvertedToExceptions(): void
     {
         $instance = new Settings(['known' => 'value']);
