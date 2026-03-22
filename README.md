@@ -16,14 +16,14 @@ Requires PHP 8.3 or newer.
 
 ## Getting Started
 
-Create a `Settings` instance by passing in your configuration array.
+Create a `Manager` instance by passing in your configuration array.
 
 ```php
 declare(strict_types=1);
 
-use Anddye\Settings\Settings;
+use AndrewDyer\Settings\Manager;
 
-$settings = new Settings([
+$settings = new Manager([
     'app_name' => 'My Application',
     'database' => [
         'host' => 'localhost',
@@ -91,7 +91,7 @@ $settings->has('database.credentials.password'); // true
 If a top-level key contains dots, the exact key takes precedence over nested resolution.
 
 ```php
-$settings = new Settings([
+$settings = new Manager([
     'database.host' => 'literal',
 ]);
 
@@ -101,7 +101,7 @@ $settings->get('database.host'); // 'literal'
 If the exact key does not exist, the `get()` method falls back to resolving nested values using dot notation.
 
 ```php
-$settings = new Settings([
+$settings = new Manager([
     'database' => [
         'host' => 'nested',
     ],

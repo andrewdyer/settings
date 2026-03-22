@@ -5,12 +5,12 @@
   "license": "MIT",
   "autoload": {
     "psr-4": {
-      "Anddye\\Settings\\": "src/"
+      "AndrewDyer\\Settings\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Anddye\\Settings\\Tests\\": "tests/"
+      "AndrewDyer\\Settings\\Tests\\": "tests/"
     }
   },
   "require": {

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Anddye\Settings;
+namespace AndrewDyer\Settings;
 
-use Anddye\Settings\Exceptions\MissingSettingException;
+use AndrewDyer\Settings\Exceptions\MissingSettingException;
 
-readonly class Settings implements SettingsInterface
+readonly class Manager implements ManagerInterface
 {
     public function __construct(private array $settings)
     {

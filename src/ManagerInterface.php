@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Anddye\Settings;
+namespace AndrewDyer\Settings;
 
-interface SettingsInterface
+interface ManagerInterface
 {
     public function all(): array;
 
