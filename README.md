@@ -1,6 +1,6 @@
 # ⚙️ Settings
 
-A simple, framework-agnostic settings container for PHP applications.
+A lightweight, framework-agnostic settings container for managing configuration in PHP applications.
 
 ## ⚖️ License
 

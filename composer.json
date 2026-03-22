@@ -1,6 +1,6 @@
 {
   "name": "andrewdyer/settings",
-  "description": "A simple, framework-agnostic settings container for PHP applications",
+  "description": "A lightweight, framework-agnostic settings container for managing configuration in PHP applications",
   "type": "library",
   "license": "MIT",
   "autoload": {
