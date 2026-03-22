@@ -13,7 +13,7 @@ This library provides a lightweight wrapper around a plain PHP array, giving you
 ## 📥 Installation
 
 ```bash
-composer require andrewdyer/php-settings
+composer require andrewdyer/settings
 ```
 
 Requires PHP 8.3 or newer.

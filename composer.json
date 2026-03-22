@@ -1,5 +1,5 @@
 {
-  "name": "andrewdyer/php-settings",
+  "name": "andrewdyer/settings",
   "description": "A simple, framework-agnostic settings container for PHP applications",
   "type": "library",
   "license": "MIT",
