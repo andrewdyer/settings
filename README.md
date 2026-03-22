@@ -21,7 +21,7 @@ Create a `Settings` instance by passing in your configuration array.
 ```php
 declare(strict_types=1);
 
-use Anddye\Settings\Settings;
+use AndrewDyer\Settings\Settings;
 
 $settings = new Settings([
     'app_name' => 'My Application',
