@@ -12,70 +12,70 @@ class ManagerTest extends TestCase
 {
     public function testAllReturnsAllSettings(): void
     {
-        $settings = new Manager([
+        $manager = new Manager([
             'timezone' => 'UTC',
             'locale' => 'en_US',
         ]);
 
-        self::assertCount(2, $settings->all());
+        self::assertCount(2, $manager->all());
     }
 
     public function testHasReturnsTrueWhenKeyExists(): void
     {
-        $settings = new Manager([
+        $manager = new Manager([
             'timezone' => 'UTC',
         ]);
 
-        self::assertTrue($settings->has('timezone'));
+        self::assertTrue($manager->has('timezone'));
     }
 
     public function testHasReturnsFalseWhenKeyDoesNotExist(): void
     {
-        $settings = new Manager([
+        $manager = new Manager([
             'timezone' => 'UTC',
         ]);
 
-        self::assertFalse($settings->has('unknown'));
+        self::assertFalse($manager->has('unknown'));
     }
 
     public function testHasReturnsTrueForNestedKey(): void
     {
-        $settings = new Manager([
+        $manager = new Manager([
             'database' => [
                 'host' => 'localhost',
                 'port' => 5432,
             ],
         ]);
 
-        self::assertTrue($settings->has('database.host'));
-        self::assertTrue($settings->has('database.port'));
+        self::assertTrue($manager->has('database.host'));
+        self::assertTrue($manager->has('database.port'));
     }
 
     public function testHasReturnsFalseForMissingNestedKey(): void
     {
-        $settings = new Manager([
+        $manager = new Manager([
             'database' => [
                 'host' => 'localhost',
             ],
         ]);
 
-        self::assertFalse($settings->has('database.port'));
+        self::assertFalse($manager->has('database.port'));
     }
 
     public function testHasReturnsFalseWhenIntermediateKeyDoesNotExist(): void
     {
-        $settings = new Manager([
+        $manager = new Manager([
             'database' => [
                 'host' => 'localhost',
             ],
         ]);
 
-        self::assertFalse($settings->has('cache.driver'));
+        self::assertFalse($manager->has('cache.driver'));
     }
 
     public function testHasReturnsTrueForDeepNestedKey(): void
     {
-        $settings = new Manager([
+        $manager = new Manager([
             'app' => [
                 'services' => [
                     'cache' => [
@@ -85,85 +85,85 @@ class ManagerTest extends TestCase
             ],
         ]);
 
-        self::assertTrue($settings->has('app.services.cache.driver'));
+        self::assertTrue($manager->has('app.services.cache.driver'));
     }
 
     public function testHasReturnsTrueForLiteralKeyContainingDot(): void
     {
-        $settings = new Manager([
+        $manager = new Manager([
             'database.host' => 'localhost',
         ]);
 
-        self::assertTrue($settings->has('database.host'));
+        self::assertTrue($manager->has('database.host'));
     }
 
     public function testHasPrefersLiteralDotKeyOverNested(): void
     {
-        $settings = new Manager([
+        $manager = new Manager([
             'database.host' => 'literal',
             'database' => [
                 'host' => 'nested',
             ],
         ]);
 
-        self::assertTrue($settings->has('database.host'));
+        self::assertTrue($manager->has('database.host'));
     }
 
     public function testGetReturnsSettingByKey(): void
     {
-        $settings = new Manager([
+        $manager = new Manager([
             'timezone' => 'UTC',
         ]);
 
-        self::assertSame('UTC', $settings->get('timezone'));
+        self::assertSame('UTC', $manager->get('timezone'));
     }
 
     public function testGetReturnsNullWhenKeyExistsWithNullValue(): void
     {
-        $settings = new Manager([
+        $manager = new Manager([
             'timezone' => null,
         ]);
 
-        self::assertNull($settings->get('timezone'));
+        self::assertNull($manager->get('timezone'));
     }
 
     public function testGetWithNumericStringKeyReturnsCorrectValue(): void
     {
-        $settings = new Manager([
+        $manager = new Manager([
             '0' => 'zero',
         ]);
 
-        self::assertSame('zero', $settings->get('0'));
+        self::assertSame('zero', $manager->get('0'));
     }
 
     public function testGetThrowsMissingSettingExceptionWhenKeyNotFound(): void
     {
-        $settings = new Manager([
+        $manager = new Manager([
             'timezone' => 'UTC',
         ]);
 
         $this->expectException(MissingSettingException::class);
         $this->expectExceptionMessage('Setting not found for key "unknown".');
 
-        $settings->get('unknown');
+        $manager->get('unknown');
     }
 
     public function testGetReturnsNestedValueWithDotNotation(): void
     {
-        $settings = new Manager([
+        $manager = new Manager([
             'database' => [
                 'host' => 'localhost',
                 'port' => 5432,
             ],
         ]);
 
-        self::assertSame('localhost', $settings->get('database.host'));
-        self::assertSame(5432, $settings->get('database.port'));
+        self::assertSame('localhost', $manager->get('database.host'));
+        self::assertSame(5432, $manager->get('database.port'));
     }
 
     public function testGetReturnsNestedArrayValue(): void
     {
-        $settings = new Manager([
+        $manager = new Manager([
             'database' => [
                 'host' => 'localhost',
                 'port' => 5432,
@@ -174,12 +174,12 @@ class ManagerTest extends TestCase
             'host' => 'localhost',
             'port' => 5432,
         ];
-        self::assertSame($expected, $settings->get('database'));
+        self::assertSame($expected, $manager->get('database'));
     }
 
     public function testGetReturnsDeepNestedValue(): void
     {
-        $settings = new Manager([
+        $manager = new Manager([
             'app' => [
                 'services' => [
                     'cache' => [
@@ -189,12 +189,12 @@ class ManagerTest extends TestCase
             ],
         ]);
 
-        self::assertSame('redis', $settings->get('app.services.cache.driver'));
+        self::assertSame('redis', $manager->get('app.services.cache.driver'));
     }
 
     public function testGetThrowsExceptionForMissingNestedKey(): void
     {
-        $settings = new Manager([
+        $manager = new Manager([
             'database' => [
                 'host' => 'localhost',
             ],
@@ -203,12 +203,12 @@ class ManagerTest extends TestCase
         $this->expectException(MissingSettingException::class);
         $this->expectExceptionMessage('Setting not found for key "database.port".');
 
-        $settings->get('database.port');
+        $manager->get('database.port');
     }
 
     public function testGetThrowsExceptionWhenIntermediateKeyDoesNotExist(): void
     {
-        $settings = new Manager([
+        $manager = new Manager([
             'database' => [
                 'host' => 'localhost',
             ],
@@ -217,38 +217,38 @@ class ManagerTest extends TestCase
         $this->expectException(MissingSettingException::class);
         $this->expectExceptionMessage('Setting not found for key "cache.driver".');
 
-        $settings->get('cache.driver');
+        $manager->get('cache.driver');
     }
 
     public function testGetReturnsNullForNestedKeyWithNullValue(): void
     {
-        $settings = new Manager([
+        $manager = new Manager([
             'database' => [
                 'password' => null,
             ],
         ]);
 
-        self::assertNull($settings->get('database.password'));
+        self::assertNull($manager->get('database.password'));
     }
 
     public function testGetReturnsLiteralKeyContainingDot(): void
     {
-        $settings = new Manager([
+        $manager = new Manager([
             'database.host' => 'localhost',
         ]);
 
-        self::assertSame('localhost', $settings->get('database.host'));
+        self::assertSame('localhost', $manager->get('database.host'));
     }
 
     public function testGetPrefersLiteralDotKeyOverNestedValue(): void
     {
-        $settings = new Manager([
+        $manager = new Manager([
             'database.host' => 'literal',
             'database' => [
                 'host' => 'nested',
             ],
         ]);
 
-        self::assertSame('literal', $settings->get('database.host'));
+        self::assertSame('literal', $manager->get('database.host'));
     }
 }
