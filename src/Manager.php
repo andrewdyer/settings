@@ -6,7 +6,7 @@ namespace AndrewDyer\Settings;
 
 use AndrewDyer\Settings\Exceptions\MissingSettingException;
 
-readonly class Settings implements SettingsInterface
+readonly class Manager implements SettingsInterface
 {
     public function __construct(private array $settings)
     {

@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace AndrewDyer\Settings\Tests\Unit;
 
 use AndrewDyer\Settings\Exceptions\MissingSettingException;
-use AndrewDyer\Settings\Settings;
+use AndrewDyer\Settings\Manager;
 use PHPUnit\Framework\TestCase;
 
-class SettingsTest extends TestCase
+class ManagerTest extends TestCase
 {
     public function testAllReturnsAllSettings(): void
     {
-        $settings = new Settings([
+        $settings = new Manager([
             'timezone' => 'UTC',
             'locale' => 'en_US',
         ]);
@@ -22,7 +22,7 @@ class SettingsTest extends TestCase
 
     public function testHasReturnsTrueWhenKeyExists(): void
     {
-        $settings = new Settings([
+        $settings = new Manager([
             'timezone' => 'UTC',
         ]);
 
@@ -31,7 +31,7 @@ class SettingsTest extends TestCase
 
     public function testHasReturnsFalseWhenKeyDoesNotExist(): void
     {
-        $settings = new Settings([
+        $settings = new Manager([
             'timezone' => 'UTC',
         ]);
 
@@ -40,7 +40,7 @@ class SettingsTest extends TestCase
 
     public function testHasReturnsTrueForNestedKey(): void
     {
-        $settings = new Settings([
+        $settings = new Manager([
             'database' => [
                 'host' => 'localhost',
                 'port' => 5432,
@@ -53,7 +53,7 @@ class SettingsTest extends TestCase
 
     public function testHasReturnsFalseForMissingNestedKey(): void
     {
-        $settings = new Settings([
+        $settings = new Manager([
             'database' => [
                 'host' => 'localhost',
             ],
@@ -64,7 +64,7 @@ class SettingsTest extends TestCase
 
     public function testHasReturnsFalseWhenIntermediateKeyDoesNotExist(): void
     {
-        $settings = new Settings([
+        $settings = new Manager([
             'database' => [
                 'host' => 'localhost',
             ],
@@ -75,7 +75,7 @@ class SettingsTest extends TestCase
 
     public function testHasReturnsTrueForDeepNestedKey(): void
     {
-        $settings = new Settings([
+        $settings = new Manager([
             'app' => [
                 'services' => [
                     'cache' => [
@@ -90,7 +90,7 @@ class SettingsTest extends TestCase
 
     public function testHasReturnsTrueForLiteralKeyContainingDot(): void
     {
-        $settings = new Settings([
+        $settings = new Manager([
             'database.host' => 'localhost',
         ]);
 
@@ -99,7 +99,7 @@ class SettingsTest extends TestCase
 
     public function testHasPrefersLiteralDotKeyOverNested(): void
     {
-        $settings = new Settings([
+        $settings = new Manager([
             'database.host' => 'literal',
             'database' => [
                 'host' => 'nested',
@@ -111,7 +111,7 @@ class SettingsTest extends TestCase
 
     public function testGetReturnsSettingByKey(): void
     {
-        $settings = new Settings([
+        $settings = new Manager([
             'timezone' => 'UTC',
         ]);
 
@@ -120,7 +120,7 @@ class SettingsTest extends TestCase
 
     public function testGetReturnsNullWhenKeyExistsWithNullValue(): void
     {
-        $settings = new Settings([
+        $settings = new Manager([
             'timezone' => null,
         ]);
 
@@ -129,7 +129,7 @@ class SettingsTest extends TestCase
 
     public function testGetWithNumericStringKeyReturnsCorrectValue(): void
     {
-        $settings = new Settings([
+        $settings = new Manager([
             '0' => 'zero',
         ]);
 
@@ -138,7 +138,7 @@ class SettingsTest extends TestCase
 
     public function testGetThrowsMissingSettingExceptionWhenKeyNotFound(): void
     {
-        $settings = new Settings([
+        $settings = new Manager([
             'timezone' => 'UTC',
         ]);
 
@@ -150,7 +150,7 @@ class SettingsTest extends TestCase
 
     public function testGetReturnsNestedValueWithDotNotation(): void
     {
-        $settings = new Settings([
+        $settings = new Manager([
             'database' => [
                 'host' => 'localhost',
                 'port' => 5432,
@@ -163,7 +163,7 @@ class SettingsTest extends TestCase
 
     public function testGetReturnsNestedArrayValue(): void
     {
-        $settings = new Settings([
+        $settings = new Manager([
             'database' => [
                 'host' => 'localhost',
                 'port' => 5432,
@@ -179,7 +179,7 @@ class SettingsTest extends TestCase
 
     public function testGetReturnsDeepNestedValue(): void
     {
-        $settings = new Settings([
+        $settings = new Manager([
             'app' => [
                 'services' => [
                     'cache' => [
@@ -194,7 +194,7 @@ class SettingsTest extends TestCase
 
     public function testGetThrowsExceptionForMissingNestedKey(): void
     {
-        $settings = new Settings([
+        $settings = new Manager([
             'database' => [
                 'host' => 'localhost',
             ],
@@ -208,7 +208,7 @@ class SettingsTest extends TestCase
 
     public function testGetThrowsExceptionWhenIntermediateKeyDoesNotExist(): void
     {
-        $settings = new Settings([
+        $settings = new Manager([
             'database' => [
                 'host' => 'localhost',
             ],
@@ -222,7 +222,7 @@ class SettingsTest extends TestCase
 
     public function testGetReturnsNullForNestedKeyWithNullValue(): void
     {
-        $settings = new Settings([
+        $settings = new Manager([
             'database' => [
                 'password' => null,
             ],
@@ -233,7 +233,7 @@ class SettingsTest extends TestCase
 
     public function testGetReturnsLiteralKeyContainingDot(): void
     {
-        $settings = new Settings([
+        $settings = new Manager([
             'database.host' => 'localhost',
         ]);
 
@@ -242,7 +242,7 @@ class SettingsTest extends TestCase
 
     public function testGetPrefersLiteralDotKeyOverNestedValue(): void
     {
-        $settings = new Settings([
+        $settings = new Manager([
             'database.host' => 'literal',
             'database' => [
                 'host' => 'nested',
