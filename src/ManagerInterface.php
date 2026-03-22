@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AndrewDyer\Settings;
 
-interface SettingsInterface
+interface ManagerInterface
 {
     public function all(): array;
 
