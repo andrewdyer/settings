@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Anddye\Settings;
+namespace AndrewDyer\Settings;
 
-use Anddye\Settings\Exceptions\MissingSettingException;
+use AndrewDyer\Settings\Exceptions\MissingSettingException;
 
 readonly class Settings implements SettingsInterface
 {

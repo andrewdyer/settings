@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Anddye\Settings\Tests\Unit;
+namespace AndrewDyer\Settings\Tests\Unit;
 
-use Anddye\Settings\Exceptions\MissingSettingException;
-use Anddye\Settings\Settings;
+use AndrewDyer\Settings\Exceptions\MissingSettingException;
+use AndrewDyer\Settings\Settings;
 use PHPUnit\Framework\TestCase;
 
 class SettingsTest extends TestCase
