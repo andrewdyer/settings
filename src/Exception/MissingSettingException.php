@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AndrewDyer\Settings\Exceptions;
+namespace AndrewDyer\Settings\Exception;
 
 use RuntimeException;
 

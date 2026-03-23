@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AndrewDyer\Settings\Tests\Unit;
 
-use AndrewDyer\Settings\Exceptions\MissingSettingException;
+use AndrewDyer\Settings\Exception\MissingSettingException;
 use AndrewDyer\Settings\Manager;
 use PHPUnit\Framework\TestCase;
 
