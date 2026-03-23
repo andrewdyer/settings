@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AndrewDyer\Settings;
 
-use AndrewDyer\Settings\Contract\ManagerInterface;
+use AndrewDyer\Settings\Contracts\ManagerInterface;
 use AndrewDyer\Settings\Exception\MissingSettingException;
 
 readonly class Manager implements ManagerInterface
