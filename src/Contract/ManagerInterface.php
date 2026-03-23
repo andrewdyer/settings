@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AndrewDyer\Settings;
+namespace AndrewDyer\Settings\Contract;
 
 interface ManagerInterface
 {
