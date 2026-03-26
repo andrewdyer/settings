@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace AndrewDyer\Settings;
 
-use AndrewDyer\Settings\Contracts\ManagerInterface;
+use AndrewDyer\Settings\Contracts\SettingsInterface;
 use AndrewDyer\Settings\Exceptions\MissingSettingException;
 
-readonly class Manager implements ManagerInterface
+readonly class Settings implements SettingsInterface
 {
     public function __construct(private array $settings)
     {
