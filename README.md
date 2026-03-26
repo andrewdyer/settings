@@ -16,13 +16,9 @@ Requires PHP 8.3 or newer.
 
 ## Getting Started
 
-Create a `Settings` instance by passing in your configuration array.
+Create a `AndrewDyer\Settings\Settings` instance by passing in your configuration array.
 
 ```php
-declare(strict_types=1);
-
-use AndrewDyer\Settings\Settings;
-
 $settings = new Settings([
     'app_name' => 'My Application',
     'database' => [
