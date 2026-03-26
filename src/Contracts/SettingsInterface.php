@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AndrewDyer\Settings\Contracts;
 
-interface ManagerInterface
+interface SettingsInterface
 {
     public function all(): array;
 
