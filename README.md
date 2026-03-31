@@ -1,6 +1,6 @@
 # Settings
 
-A lightweight, framework-agnostic settings container for managing configuration in PHP applications.
+A framework-agnostic PHP settings library for managing application configuration in a consistent and structured way.
 
 ## ✨ Introduction
 
