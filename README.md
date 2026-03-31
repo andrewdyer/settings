@@ -6,13 +6,16 @@ A lightweight, framework-agnostic settings container for managing configuration 
 
 This library provides a lightweight wrapper around a plain PHP array, giving you a clean interface for storing and retrieving application configuration values. It offers a straightforward, dependency-free way to manage configuration without coupling your code to a specific framework, making it easy to drop into any project or architecture.
 
+## 📋 Prerequisites
+
+- **[PHP](https://www.php.net/)**: Version 8.3 or higher is required.
+- **[Composer](https://getcomposer.org/)**: Dependency management tool for PHP.
+
 ## 📥 Installation
 
 ```bash
 composer require andrewdyer/settings
 ```
-
-Requires PHP 8.3 or newer.
 
 ## 🚀 Getting Started
 
