@@ -1,5 +1,12 @@
 ![Settings](https://public-assets.andrewdyer.rocks/images/covers/settings.png)
 
+<p align="center">
+  <a href="https://packagist.org/packages/andrewdyer/settings"><img src="https://poser.pugx.org/andrewdyer/settings/v/stable?style=for-the-badge" alt="Latest Stable Version"></a>
+  <a href="https://packagist.org/packages/andrewdyer/settings"><img src="https://poser.pugx.org/andrewdyer/settings/downloads?style=for-the-badge" alt="Total Downloads"></a>
+  <a href="https://packagist.org/packages/andrewdyer/settings"><img src="https://poser.pugx.org/andrewdyer/settings/license?style=for-the-badge" alt="License"></a>
+  <a href="https://packagist.org/packages/andrewdyer/settings"><img src="https://poser.pugx.org/andrewdyer/settings/require/php?style=for-the-badge" alt="PHP Version Required"></a>
+</p>
+
 # Settings
 
 A framework-agnostic PHP settings library for managing application configuration in a consistent and structured way.
