@@ -1,3 +1,5 @@
+![Settings](https://public-assets.andrewdyer.rocks/images/covers/settings.png)
+
 # Settings
 
 A framework-agnostic PHP settings library for managing application configuration in a consistent and structured way.
