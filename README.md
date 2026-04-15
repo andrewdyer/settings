@@ -11,22 +11,22 @@
 
 A framework-agnostic PHP settings library for managing application configuration in a consistent and structured way.
 
-## ✨ Introduction
+## Introduction
 
 This library provides a lightweight wrapper around a plain PHP array, giving you a clean interface for storing and retrieving application configuration values. It offers a straightforward, dependency-free way to manage configuration without coupling your code to a specific framework, making it easy to drop into any project or architecture.
 
-## 📋 Prerequisites
+## Prerequisites
 
 - **[PHP](https://www.php.net/)**: Version 8.3 or higher is required.
 - **[Composer](https://getcomposer.org/)**: Dependency management tool for PHP.
 
-## 📥 Installation
+## Installation
 
 ```bash
 composer require andrewdyer/settings
 ```
 
-## 🚀 Getting Started
+## Getting Started
 
 Create a `AndrewDyer\Settings\Settings` instance by passing in your configuration array.
 
@@ -44,7 +44,7 @@ $settings = new Settings([
 ]);
 ```
 
-## 📚 Usage
+## Usage
 
 ### Retrieve all settings
 
@@ -118,6 +118,6 @@ $settings = new Settings([
 $settings->get('database.host'); // 'nested'
 ```
 
-## ⚖️ License
+## License
 
 Licensed under the [MIT license](https://opensource.org/licenses/MIT) and is free for private or commercial projects.
